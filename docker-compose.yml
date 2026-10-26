@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aeoscope
+      POSTGRES_PASSWORD: aeoscope
+      POSTGRES_DB: aeoscope
+    ports:
+      - "5432:5432"
+    volumes:
+      - aeoscope-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aeoscope -d aeoscope"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://aeoscope:aeoscope@db:5432/aeoscope
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      PERPLEXITY_API_KEY: ${PERPLEXITY_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      PERPLEXITY_MODEL: ${PERPLEXITY_MODEL:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-}
+      CRON_SECRET: ${CRON_SECRET:-}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  aeoscope-pgdata:
