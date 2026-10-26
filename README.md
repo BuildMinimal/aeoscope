@@ -2,7 +2,7 @@
 
 > Open-source, self-hosted AI visibility tracker (GEO/AEO). Find out whether ChatGPT, Perplexity, Gemini, Claude, and Google AI Overviews mention and cite your brand - before your competitors do.
 
-**Status:** 🚧 work in progress - MVP in active development.
+**Status:** MVP - API and UI may still change.
 
 ---
 
@@ -20,17 +20,18 @@ aeoscope is the open-source, self-hosted alternative to commercial platforms lik
 
 1. **Define** your brand, competitors, and a prompt set (e.g. "best CRM for startups", "top project management tools")
 2. **Schedule** aeoscope to query your chosen AI engines on those prompts (cron or manual "Run now")
-3. **Detect** whether each response mentions your brand, cites your domain, in what position, and with what sentiment
+3. **Detect** whether each response mentions your brand and cites your domain, and where competitors appear
 4. **Visualize** your visibility score over time, per engine, per prompt - plus competitor share-of-voice
 
-## Features (in development)
+## Features
 
-- Workspace setup: brand name, aliases, competitor list, domains
-- Prompt set management (CRUD, grouping/tags)
+- Brand setup: name, aliases, website domain, competitor list
+- Prompt set management with optional cron scheduling
 - Provider adapters: OpenAI (ChatGPT), Perplexity, Gemini, Anthropic (Claude) - BYOK
-- Scheduled runs + manual trigger, run history
-- Mention/citation detection: exact + fuzzy brand matching, cited-URL extraction
-- Dashboard: visibility score over time, per-engine breakdown, per-prompt results
+- Manual trigger, run history, and a built-in scheduler
+- Mention/citation detection: case-insensitive alias matching, cited-URL extraction, competitor share-of-voice
+- Dashboard: visibility score over time, per-engine breakdown, share of voice
+- Mock engine so you can try everything without a single API key
 - One-command deploy: `docker compose up` (app + Postgres)
 
 ## Tech stack
@@ -39,18 +40,40 @@ TypeScript · Next.js · Postgres · Docker
 
 ## Getting started
 
-Documentation will ship with the first release. Planned quick start:
+Requirements: [Docker](https://docs.docker.com/get-docker/). (Node 22+ and a Postgres database also work - see Development below.)
 
 ```bash
 git clone https://github.com/buildminimal/aeoscope.git
 cd aeoscope
-cp .env.example .env   # add your AI provider API keys
+cp .env.example .env   # optional: add your AI provider API keys
 docker compose up -d
 ```
 
+Then open **http://localhost:3000**:
+
+1. **Settings** - enter your brand name, aliases, domain, and enable engines
+2. **Prompt sets** - add the questions buyers ask (e.g. "best crm for startups")
+3. **Runs** - trigger a run and watch results come in
+
+No API keys yet? Enable the **mock engine** - it simulates answers so you can explore the full workflow for free.
+
+### Scheduling
+
+Give a prompt set a cron expression (e.g. `0 9 * * *`) and the built-in scheduler runs it automatically. Where a persistent scheduler is not possible, set `AEOSCOPE_SCHEDULER=off` and call `POST /api/cron` from an external cron, authenticated with the `x-cron-secret` header (set `CRON_SECRET` in your env).
+
+### Development
+
+```bash
+npm install
+npm run db:migrate   # apply migrations to your Postgres
+npm run dev
+```
+
+Engines are queried through their official APIs with your own keys; default models can be overridden per engine in `.env` (see `.env.example`).
+
 ## Contributing
 
-Contributions are welcome. Once the MVP lands, open an issue before submitting large changes.
+Contributions are welcome. Open an issue before submitting large changes.
 
 ## License
 
