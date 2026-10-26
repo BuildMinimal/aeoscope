@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { promptSets, prompts } from "@/lib/db/schema";
 import { asStringArray, jsonError, readJson } from "@/lib/http";
+import { scheduleSet, unscheduleSet } from "@/lib/scheduler";
 import { eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
@@ -42,6 +43,12 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       }
     }
 
+    if (row.enabled && row.schedule) {
+      await scheduleSet(row.id, row.schedule);
+    } else {
+      unscheduleSet(row.id);
+    }
+
     return Response.json({ promptSet: row });
   } catch (err) {
     return jsonError(err);
@@ -52,6 +59,7 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params;
     await db.delete(promptSets).where(eq(promptSets.id, id));
+    unscheduleSet(id);
     return Response.json({ ok: true });
   } catch (err) {
     return jsonError(err);

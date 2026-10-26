@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
 import { promptSets, prompts } from "@/lib/db/schema";
 import { asStringArray, jsonError, readJson, requireString } from "@/lib/http";
-import { desc, eq } from "drizzle-orm";
+import { scheduleSet } from "@/lib/scheduler";
+import { desc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,8 @@ export async function POST(req: Request) {
         position: i,
       })),
     );
+
+    if (set.schedule) await scheduleSet(set.id, set.schedule);
 
     return Response.json({ promptSet: { ...set, prompts: promptTexts } }, { status: 201 });
   } catch (err) {
