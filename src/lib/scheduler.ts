@@ -2,12 +2,14 @@ import cron from "node-cron";
 import { db } from "@/lib/db";
 import { promptSets } from "@/lib/db/schema";
 import { getSettings, runPromptSet, usableEngines } from "@/lib/runs";
-import type { EngineId } from "@/lib/engines/types";
 
-const jobs = new Map<string, cron.ScheduledTask>();
+type Task = ReturnType<typeof cron.schedule>;
+
+const jobs = new Map<string, Task>();
 const inFlight = new Set<string>();
 
-async function trigger(setId: string) {
+/** Runs a prompt set now (skipped if the previous run is still going). */
+export async function trigger(setId: string) {
   if (inFlight.has(setId)) return; // previous run still going
   inFlight.add(setId);
   try {
