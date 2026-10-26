@@ -1,10 +1,16 @@
 import { EngineAdapter, EngineId } from "./types";
 import { openai } from "./openai";
 import { perplexity } from "./perplexity";
+import { gemini } from "./gemini";
+import { anthropic } from "./anthropic";
+import { mock } from "./mock";
 
 export const ENGINES: Record<EngineId, EngineAdapter> = {
   openai,
   perplexity,
+  gemini,
+  anthropic,
+  mock,
 };
 
 export function listEngines() {
