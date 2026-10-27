@@ -20,6 +20,10 @@ docker compose up -d
 
 Open `http://localhost:3000`. The app applies its database migrations on startup - there is nothing else to set up.
 
+::: tip Planning to use local AI servers (LM Studio, Ollama)?
+If the app runs in Docker and your model server runs directly on your machine, `localhost` inside the container is not your machine - point the engine's base URL at `http://host.docker.internal:<port>` instead (e.g. `:1234` for LM Studio, `:11434` for Ollama). See [Local models](/guides/local-models#running-aeoscope-in-docker).
+:::
+
 ## Install without Docker
 
 Requirements: Node 22+ and a Postgres database.

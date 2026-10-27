@@ -42,10 +42,10 @@ Every engine has a sensible default model. Override per engine:
 | Variable | Default | Description |
 | --- | --- | --- |
 | `OLLAMA_BASE_URL` | `http://127.0.0.1:11434` | Ollama address |
-| `CUSTOM_BASE_URL` | - | OpenAI-compatible base URL, e.g. `http://localhost:1234/v1` for LM Studio. Setting it enables the Custom engine |
+| `CUSTOM_BASE_URL` | - | OpenAI-compatible base URL, e.g. `http://localhost:1234/v1` for LM Studio. Setting it enables the Custom engine. When aeoscope runs in Docker and the server runs on your machine, use `http://host.docker.internal:<port>/v1` instead of `localhost` |
 | `CUSTOM_API_KEY` | - | Only needed if your server requires auth |
 
-See [Local models](/guides/local-models) for per-tool examples.
+See [Local models](/guides/local-models) for per-tool examples, model identifiers, and the [Docker notes](/guides/local-models#running-aeoscope-in-docker).
 
 ## Scheduler and cron endpoint
 
