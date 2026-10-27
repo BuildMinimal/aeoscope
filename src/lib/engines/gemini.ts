@@ -1,4 +1,4 @@
-import { EngineAdapter, EngineError, EngineResult } from "./types";
+import { EngineAdapter, EngineError, EngineResult, postJson } from "./types";
 
 interface GeminiResponse {
   candidates?: {
