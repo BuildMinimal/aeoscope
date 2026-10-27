@@ -28,7 +28,7 @@ aeoscope is the open-source, self-hosted alternative to commercial platforms lik
 - Brand setup: name, aliases, website domain, competitor list
 - Prompt set management with optional cron scheduling
 - Provider adapters: OpenAI (ChatGPT), Perplexity, Gemini, Anthropic (Claude) - BYOK
-- Local models via [Ollama](https://ollama.com) - no API keys, runs fully offline
+- Local models: [Ollama](https://ollama.com) out of the box, or any OpenAI-compatible server (LM Studio, llama.cpp, vLLM, Jan, LocalAI, ...)
 - Manual trigger, run history, and a built-in scheduler
 - Mention/citation detection: case-insensitive alias matching, cited-URL extraction, competitor share-of-voice
 - Dashboard: visibility score over time, per-engine breakdown, share of voice
@@ -58,15 +58,31 @@ Then open **http://localhost:3000**:
 
 No API keys yet? Enable the **mock engine** - it simulates answers so you can explore the full workflow for free.
 
-### Local models (Ollama)
+### Local models
 
-aeoscope can also query models running on your own machine through [Ollama](https://ollama.com) - no API keys, no data leaving your network:
+aeoscope can also query models running on your own machine - no API keys, no data leaving your network.
+
+**Ollama** works with zero configuration:
 
 ```bash
 ollama pull llama3.2
 ```
 
-Then enable the **Ollama** engine in Settings. Change the model with `OLLAMA_MODEL` in your `.env`. Keep in mind: hosted engines show what real users see in ChatGPT or Perplexity, while local models give you offline, zero-cost signals - they do not have web access.
+Then enable the **Ollama** engine in Settings (model via `OLLAMA_MODEL`).
+
+**LM Studio, llama.cpp, vLLM, Jan, LocalAI, and other OpenAI-compatible servers** work through the custom engine. Point `CUSTOM_BASE_URL` at your server's `/v1` endpoint in `.env`:
+
+```bash
+# LM Studio (Developer tab > Start Server)
+CUSTOM_BASE_URL=http://localhost:1234/v1
+
+# Ollama's OpenAI-compatible endpoint also works
+CUSTOM_BASE_URL=http://localhost:11434/v1
+```
+
+Set `CUSTOM_MODEL` if your server needs an explicit model name, then enable the **Custom** engine in Settings.
+
+Keep in mind: hosted engines show what real users see in ChatGPT or Perplexity, while local models give you offline, zero-cost signals - they do not have web access.
 
 ### Scheduling
 
