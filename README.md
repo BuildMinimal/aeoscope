@@ -28,6 +28,7 @@ aeoscope is the open-source, self-hosted alternative to commercial platforms lik
 - Brand setup: name, aliases, website domain, competitor list
 - Prompt set management with optional cron scheduling
 - Provider adapters: OpenAI (ChatGPT), Perplexity, Gemini, Anthropic (Claude) - BYOK
+- Local models via [Ollama](https://ollama.com) - no API keys, runs fully offline
 - Manual trigger, run history, and a built-in scheduler
 - Mention/citation detection: case-insensitive alias matching, cited-URL extraction, competitor share-of-voice
 - Dashboard: visibility score over time, per-engine breakdown, share of voice
@@ -56,6 +57,16 @@ Then open **http://localhost:3000**:
 3. **Runs** - trigger a run and watch results come in
 
 No API keys yet? Enable the **mock engine** - it simulates answers so you can explore the full workflow for free.
+
+### Local models (Ollama)
+
+aeoscope can also query models running on your own machine through [Ollama](https://ollama.com) - no API keys, no data leaving your network:
+
+```bash
+ollama pull llama3.2
+```
+
+Then enable the **Ollama** engine in Settings. Change the model with `OLLAMA_MODEL` in your `.env`. Keep in mind: hosted engines show what real users see in ChatGPT or Perplexity, while local models give you offline, zero-cost signals - they do not have web access.
 
 ### Scheduling
 
