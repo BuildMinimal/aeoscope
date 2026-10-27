@@ -21,7 +21,7 @@ export function Nav() {
           <Link
             key={l.href}
             href={l.href}
-            className={`rounded-md px-3 py-1.5 text-sm ${
+            className={`rounded-md px-3 py-1.5 text-sm transition-colors duration-150 ${
               active
                 ? "font-medium text-brand bg-brand-soft"
                 : "text-muted hover:text-foreground"

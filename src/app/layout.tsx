@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Nav } from "@/components/nav";
+import { PageTransition } from "@/components/page-transition";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,7 +39,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Nav />
           </div>
         </header>
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <footer className="border-t border-line">
           <div className="mx-auto max-w-5xl px-4 py-4 text-xs text-faint">
             aeoscope - self-hosted AI visibility tracking
