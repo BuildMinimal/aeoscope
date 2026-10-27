@@ -1,4 +1,11 @@
-export type EngineId = "openai" | "perplexity" | "gemini" | "anthropic" | "ollama" | "mock";
+export type EngineId =
+  | "openai"
+  | "perplexity"
+  | "gemini"
+  | "anthropic"
+  | "ollama"
+  | "custom"
+  | "mock";
 
 export interface EngineResult {
   text: string;

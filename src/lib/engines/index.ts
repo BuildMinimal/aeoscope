@@ -4,6 +4,7 @@ import { perplexity } from "./perplexity";
 import { gemini } from "./gemini";
 import { anthropic } from "./anthropic";
 import { ollama } from "./ollama";
+import { openaiCompatible } from "./openai-compatible";
 import { mock } from "./mock";
 
 export const ENGINES: Record<EngineId, EngineAdapter> = {
@@ -12,6 +13,7 @@ export const ENGINES: Record<EngineId, EngineAdapter> = {
   gemini,
   anthropic,
   ollama,
+  custom: openaiCompatible,
   mock,
 };
 
