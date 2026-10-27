@@ -7,7 +7,7 @@ interface GeminiResponse {
 export const gemini: EngineAdapter = {
   id: "gemini",
   label: "Google Gemini",
-  defaultModel: "gemini-2.0-flash",
+  defaultModel: "gemini-3.8-flash",
   apiKeyEnv: "GEMINI_API_KEY",
 
   isConfigured() {

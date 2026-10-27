@@ -31,7 +31,7 @@ Every engine has a sensible default model. Override per engine:
 | --- | --- |
 | `OPENAI_MODEL` | `gpt-4o-mini` |
 | `PERPLEXITY_MODEL` | `sonar` |
-| `GEMINI_MODEL` | `gemini-2.0-flash` |
+| `GEMINI_MODEL` | `gemini-3.8-flash` |
 | `ANTHROPIC_MODEL` | `claude-sonnet-4-5` |
 | `OLLAMA_MODEL` | `llama3.2` |
 | `CUSTOM_MODEL` | `local-model` |
