@@ -4,6 +4,8 @@
 
 **Status:** MVP - API and UI may still change.
 
+**Docs:** [buildminimal.github.io/aeoscope](https://buildminimal.github.io/aeoscope) - guides, local model setup, and full API reference.
+
 ---
 
 ## Why
