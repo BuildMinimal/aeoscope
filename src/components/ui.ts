@@ -6,13 +6,13 @@ export const inputClass =
   "w-full rounded-md border border-line bg-background px-3 py-2 text-sm text-foreground placeholder:text-faint focus:outline-none focus:ring-2 focus:ring-brand/40";
 
 export const buttonClass =
-  "inline-flex items-center justify-center gap-2 rounded-md bg-btn px-3.5 py-2 text-sm font-medium text-white hover:bg-btn-hover disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-md bg-btn px-3.5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-btn-hover disabled:cursor-not-allowed disabled:opacity-50";
 
 export const buttonSecondaryClass =
-  "inline-flex items-center justify-center gap-2 rounded-md border border-line px-3 py-2 text-sm text-foreground hover:bg-brand-soft hover:text-brand disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-md border border-line bg-background px-3 py-2 text-sm text-foreground shadow-sm transition-colors hover:bg-brand-soft hover:text-brand disabled:cursor-not-allowed disabled:opacity-50";
 
 export const buttonDangerClass =
-  "inline-flex items-center justify-center rounded-md px-2 py-1 text-xs text-red-600 hover:bg-red-500/10 dark:text-red-400";
+  "inline-flex items-center justify-center rounded-md border border-red-500/30 px-2 py-1 text-xs text-red-600 transition-colors hover:bg-red-500/10 dark:text-red-400";
 
 export const labelClass = "block text-xs font-medium text-muted mb-1.5";
 

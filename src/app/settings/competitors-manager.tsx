@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  buttonClass,
   buttonDangerClass,
   buttonSecondaryClass,
   cardClass,
@@ -105,7 +106,7 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
         </div>
       </div>
       <button
-        className={`${buttonSecondaryClass} mt-4`}
+        className={`mt-4 ${name.trim() && !adding ? buttonClass : buttonSecondaryClass}`}
         onClick={add}
         disabled={adding || !name.trim()}
       >
