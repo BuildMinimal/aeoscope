@@ -47,23 +47,23 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
   return (
     <div className={cardClass}>
       <h2 className="text-sm font-semibold">Competitors</h2>
-      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+      <p className="mt-1 text-xs text-muted">
         Tracked to measure share of voice: how often they show up next to you
         in AI answers.
       </p>
 
       {props.competitors.length > 0 && (
-        <ul className="mt-4 divide-y divide-neutral-100 dark:divide-neutral-900">
+        <ul className="mt-4 divide-y divide-line">
           {props.competitors.map((c) => (
             <li key={c.id} className="flex items-center gap-3 py-2.5 text-sm">
               <span className="font-medium">{c.name}</span>
               {c.aliases.length > 0 && (
-                <span className="text-xs text-neutral-400">
+                <span className="text-xs text-faint">
                   aka {c.aliases.join(", ")}
                 </span>
               )}
               {c.domain && (
-                <span className="ml-auto font-mono text-xs text-neutral-400">
+                <span className="ml-auto font-mono text-xs text-faint">
                   {c.domain}
                 </span>
               )}

@@ -16,7 +16,7 @@ export function RunNow(props: {
   if (props.sets.length === 0) {
     return (
       <div className={cardClass}>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="text-sm text-muted">
           Create a prompt set first - runs are always for a whole set.
         </p>
       </div>
@@ -54,11 +54,11 @@ export function RunNow(props: {
     <div className={cardClass}>
       <div className="flex flex-wrap items-end gap-3">
         <div className="min-w-48">
-          <label className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+          <label className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted">
             Prompt set
           </label>
           <select
-            className="w-full rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm dark:border-neutral-700"
+            className="w-full rounded-md border border-line bg-transparent px-3 py-2 text-sm"
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
           >
@@ -73,11 +73,11 @@ export function RunNow(props: {
           {running ? "Running - this can take a minute…" : "Run now"}
         </button>
       </div>
-      <p className="mt-2 text-xs text-neutral-400">
+      <p className="mt-2 text-xs text-faint">
         Queries every enabled engine with every prompt in the set, sequentially.
       </p>
       {result && (
-        <p className="mt-2 text-sm text-green-600 dark:text-green-400">{result}</p>
+        <p className="mt-2 text-sm text-success">{result}</p>
       )}
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>

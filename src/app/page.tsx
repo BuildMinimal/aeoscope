@@ -3,19 +3,19 @@ import { getSettings } from "@/lib/runs";
 import { getDashboardStats } from "@/lib/stats";
 import { ENGINES } from "@/lib/engines";
 import { Sparkline } from "@/components/sparkline";
-import { badgeClass, cardClass } from "@/components/ui";
+import { badgeClass, buttonClass, buttonSecondaryClass, cardClass } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
 function StatCard(props: { label: string; value: string; sub?: string }) {
   return (
     <div className={cardClass}>
-      <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted">
         {props.label}
       </p>
       <p className="mt-2 text-2xl font-semibold tracking-tight">{props.value}</p>
       {props.sub && (
-        <p className="mt-1 text-xs text-neutral-400">{props.sub}</p>
+        <p className="mt-1 text-xs text-faint">{props.sub}</p>
       )}
     </div>
   );
@@ -31,21 +31,15 @@ export default async function DashboardPage() {
         <h1 className="text-lg font-semibold tracking-tight">
           Welcome to aeoscope
         </h1>
-        <p className="mt-2 max-w-lg text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mt-2 max-w-lg text-sm text-muted">
           Set up your brand, aliases, and competitors, then create a prompt set
           to start tracking whether AI engines mention and cite you.
         </p>
         <div className="mt-4 flex gap-3">
-          <Link
-            href="/settings"
-            className="rounded-md bg-neutral-900 px-3.5 py-2 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-white dark:text-neutral-900"
-          >
+          <Link href="/settings" className={buttonClass}>
             1. Configure your brand
           </Link>
-          <Link
-            href="/prompts"
-            className="rounded-md border border-neutral-300 px-3.5 py-2 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
-          >
+          <Link href="/prompts" className={buttonSecondaryClass}>
             2. Create a prompt set
           </Link>
         </div>
@@ -61,12 +55,12 @@ export default async function DashboardPage() {
         <h1 className="text-xl font-semibold tracking-tight">
           Visibility for {s.brandName}
         </h1>
-        <span className="text-sm text-neutral-400">last 30 days</span>
+        <span className="text-sm text-faint">last 30 days</span>
       </div>
 
       {!hasData ? (
         <div className={cardClass}>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-muted">
             No results yet.{" "}
             <Link className="underline" href="/runs">
               Trigger a run
@@ -94,14 +88,14 @@ export default async function DashboardPage() {
           </div>
 
           <div className={cardClass}>
-            <p className="text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted">
               Daily visibility, last 14 days
             </p>
-            <div className="mt-3 text-neutral-900 dark:text-white">
+            <div className="mt-3 text-brand">
               <Sparkline days={stats.perDay} />
             </div>
             {stats.perDay.some((d) => d.total > 0) && (
-              <div className="mt-1 flex justify-between text-[10px] text-neutral-400">
+              <div className="mt-1 flex justify-between text-[10px] text-faint">
                 <span>{stats.perDay[0].date}</span>
                 <span>{stats.perDay[stats.perDay.length - 1].date}</span>
               </div>
@@ -116,7 +110,7 @@ export default async function DashboardPage() {
                   {stats.perEngine.map((e) => (
                     <tr
                       key={e.engine}
-                      className="border-t border-neutral-100 dark:border-neutral-900"
+                      className="border-t border-line"
                     >
                       <td className="py-2">
                         {ENGINES[e.engine as keyof typeof ENGINES]?.label ?? e.engine}
@@ -124,7 +118,7 @@ export default async function DashboardPage() {
                       <td className="py-2 text-right tabular-nums">
                         {Math.round(e.score * 100)}%
                       </td>
-                      <td className="py-2 text-right text-xs text-neutral-400">
+                      <td className="py-2 text-right text-xs text-faint">
                         {e.mentioned}/{e.total}
                       </td>
                     </tr>
@@ -135,11 +129,11 @@ export default async function DashboardPage() {
 
             <div className={cardClass}>
               <h2 className="text-sm font-semibold">Share of voice</h2>
-              <p className="mt-1 text-xs text-neutral-400">
+              <p className="mt-1 text-xs text-faint">
                 How often each competitor appears in answers alongside you.
               </p>
               {stats.share.length === 0 ? (
-                <p className="mt-3 text-sm text-neutral-400">
+                <p className="mt-3 text-sm text-faint">
                   Add competitors in settings to compare.
                 </p>
               ) : (
@@ -147,13 +141,13 @@ export default async function DashboardPage() {
                   <li>
                     <div className="flex justify-between text-sm">
                       <span className="font-medium">{s.brandName} (you)</span>
-                      <span className="tabular-nums text-neutral-400">
+                      <span className="tabular-nums text-faint">
                         {stats.overall.mentioned}/{stats.overall.total}
                       </span>
                     </div>
-                    <div className="mt-1 h-2 rounded bg-neutral-100 dark:bg-neutral-900">
+                    <div className="mt-1 h-2 rounded bg-black/5 dark:bg-white/10">
                       <div
-                        className="h-2 rounded bg-green-500"
+                        className="h-2 rounded bg-btn"
                         style={{
                           width: `${Math.round(stats.overall.score * 100)}%`,
                         }}
@@ -169,13 +163,13 @@ export default async function DashboardPage() {
                       <li key={c.id}>
                         <div className="flex justify-between text-sm">
                           <span>{c.name}</span>
-                          <span className="tabular-nums text-neutral-400">
+                          <span className="tabular-nums text-faint">
                             {c.mentioned}/{stats.overall.total}
                           </span>
                         </div>
-                        <div className="mt-1 h-2 rounded bg-neutral-100 dark:bg-neutral-900">
+                        <div className="mt-1 h-2 rounded bg-black/5 dark:bg-white/10">
                           <div
-                            className="h-2 rounded bg-neutral-400"
+                            className="h-2 rounded bg-faint"
                             style={{ width: `${pct}%` }}
                           />
                         </div>
@@ -191,11 +185,11 @@ export default async function DashboardPage() {
             <div className={cardClass}>
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold">Latest answers</h2>
-                <Link className="text-xs underline text-neutral-400" href="/runs">
+                <Link className="text-xs underline text-faint" href="/runs">
                   view all
                 </Link>
               </div>
-              <ul className="mt-3 divide-y divide-neutral-100 dark:divide-neutral-900">
+              <ul className="mt-3 divide-y divide-line">
                 {stats.recent.map((r) => (
                   <li
                     key={r.id}
@@ -204,10 +198,10 @@ export default async function DashboardPage() {
                     <span className={badgeClass(r.mentioned ? "green" : "gray")}>
                       {r.mentioned ? "mentioned" : "not mentioned"}
                     </span>
-                    <span className="text-neutral-500 dark:text-neutral-400">
+                    <span className="text-muted">
                       {ENGINES[r.engine as keyof typeof ENGINES]?.label ?? r.engine}
                     </span>
-                    <span className="min-w-0 flex-1 truncate text-neutral-400">
+                    <span className="min-w-0 flex-1 truncate text-faint">
                       {r.promptText}
                     </span>
                   </li>

@@ -16,7 +16,7 @@ export default async function RunsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-xl font-semibold tracking-tight">Runs</h1>
-        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mt-1 text-sm text-muted">
           Every stored AI answer, with what was detected in it.
         </p>
       </div>
@@ -27,7 +27,7 @@ export default async function RunsPage() {
 
       {rows.length === 0 ? (
         <div className={cardClass}>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-muted">
             No runs yet. Trigger one above - the mock engine works without any
             API keys.
           </p>
@@ -50,11 +50,11 @@ export default async function RunsPage() {
                         : "not mentioned"}
                   </span>
                   <span className="font-medium">{ENGINES[r.engine as keyof typeof ENGINES]?.label ?? r.engine}</span>
-                  <span className="text-neutral-400">{r.model}</span>
-                  <span className="min-w-0 flex-1 truncate text-neutral-500 dark:text-neutral-400">
+                  <span className="text-faint">{r.model}</span>
+                  <span className="min-w-0 flex-1 truncate text-muted">
                     {r.promptText}
                   </span>
-                  <span className="text-xs text-neutral-400">
+                  <span className="text-xs text-faint">
                     {new Date(r.createdAt).toLocaleString()}
                     {r.latencyMs != null && ` · ${(r.latencyMs / 1000).toFixed(1)}s`}
                     {r.citations.length > 0 && ` · ${r.citations.length} citations`}
@@ -67,7 +67,7 @@ export default async function RunsPage() {
                   </p>
                 ) : (
                   <div className="mt-3 space-y-3">
-                    <pre className="max-h-64 overflow-auto whitespace-pre-wrap rounded-md bg-neutral-50 p-3 text-xs dark:bg-neutral-900">
+                    <pre className="max-h-64 overflow-auto whitespace-pre-wrap rounded-md bg-surface p-3 text-xs">
                       {r.responseText}
                     </pre>
                     {r.citations.length > 0 && (
@@ -89,7 +89,7 @@ export default async function RunsPage() {
                         </ul>
                       </div>
                     )}
-                    <p className="text-xs text-neutral-400">
+                    <p className="text-xs text-faint">
                       {r.mentioned
                         ? `first mention at ${(100 * (r.mentionPosition ?? 0)).toFixed(0)}% into the answer`
                         : "brand not found in this answer"}

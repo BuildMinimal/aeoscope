@@ -14,7 +14,7 @@ export default async function PromptSetsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-xl font-semibold tracking-tight">Prompt sets</h1>
-        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mt-1 text-sm text-muted">
           The questions you want AI engines to answer, grouped so they run
           together. One prompt per line.
         </p>

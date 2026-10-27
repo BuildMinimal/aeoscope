@@ -80,7 +80,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
     <div className="space-y-6">
       {props.sets.length === 0 && (
         <div className={cardClass}>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-muted">
             No prompt sets yet. Create your first one below - for example
             &quot;category queries&quot; with prompts like &quot;best CRM for
             startups&quot; or &quot;top project management tools&quot;.
@@ -103,7 +103,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
                 <span className={`${badgeClass("gray")} font-mono`}>{s.schedule}</span>
               )}
               {!s.enabled && <span className={badgeClass("amber")}>paused</span>}
-              <span className="text-xs text-neutral-400">
+              <span className="text-xs text-faint">
                 {s.prompts.length} prompt{s.prompts.length === 1 ? "" : "s"}
               </span>
               <span className="ml-auto flex items-center gap-2">
@@ -128,7 +128,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
               </span>
             </div>
             {s.description && (
-              <p className="mt-1.5 text-sm text-neutral-500 dark:text-neutral-400">
+              <p className="mt-1.5 text-sm text-muted">
                 {s.description}
               </p>
             )}
@@ -136,9 +136,9 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
               {s.prompts.map((p) => (
                 <li
                   key={p.id}
-                  className="text-sm text-neutral-600 dark:text-neutral-300"
+                  className="text-sm text-foreground/80"
                 >
-                  <span className="mr-2 text-neutral-300 dark:text-neutral-600">›</span>
+                  <span className="mr-2 text-faint">›</span>
                   {p.text}
                 </li>
               ))}
@@ -186,7 +186,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
             onChange={(e) => setSchedule(e.target.value)}
             placeholder="0 9 * * *"
           />
-          <p className="mt-1 text-xs text-neutral-400">
+          <p className="mt-1 text-xs text-faint">
             Runs automatically at this time (UTC). Leave empty for manual runs
             only.
           </p>

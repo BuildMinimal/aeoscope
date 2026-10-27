@@ -87,7 +87,7 @@ export function SettingsForm(props: {
       </div>
 
       <h2 className="mt-6 text-sm font-semibold">Engines to query</h2>
-      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+      <p className="mt-1 text-xs text-muted">
         Keys come from your .env file (BYOK). The mock engine needs no key and
         is useful for trying aeoscope out.
       </p>
@@ -97,20 +97,20 @@ export function SettingsForm(props: {
             key={e.id}
             className={`flex items-center gap-3 rounded-md border px-3 py-2.5 text-sm ${
               enabled.includes(e.id)
-                ? "border-neutral-900 dark:border-neutral-300"
-                : "border-neutral-200 dark:border-neutral-800"
+                ? "border-brand"
+                : "border-line"
             } ${e.configured ? "cursor-pointer" : "opacity-50"}`}
           >
             <input
               type="checkbox"
-              className="accent-neutral-900 dark:accent-white"
+              className="accent-btn"
               checked={enabled.includes(e.id)}
               disabled={!e.configured}
               onChange={() => toggleEngine(e.id)}
             />
             <span className="flex-1">{e.label}</span>
             {!e.configured && (
-              <span className="text-xs text-neutral-400">set {e.apiKeyEnv}</span>
+              <span className="text-xs text-faint">set {e.apiKeyEnv}</span>
             )}
           </label>
         ))}
@@ -121,7 +121,7 @@ export function SettingsForm(props: {
           {saving ? "Saving…" : "Save settings"}
         </button>
         {saved && (
-          <span className="text-sm text-green-600 dark:text-green-400">Saved</span>
+          <span className="text-sm text-success">Saved</span>
         )}
       </div>
     </div>

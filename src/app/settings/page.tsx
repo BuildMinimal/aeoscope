@@ -20,7 +20,7 @@ export default async function SettingsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-xl font-semibold tracking-tight">Settings</h1>
-        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mt-1 text-sm text-muted">
           Tell aeoscope who it is tracking. Brand name and aliases are matched
           case-insensitively in every AI response.
         </p>

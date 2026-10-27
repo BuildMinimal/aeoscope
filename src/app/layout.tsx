@@ -30,17 +30,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <header className="border-b border-neutral-200 dark:border-neutral-800">
+        <header className="border-b border-line">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
             <Link href="/" className="text-sm font-semibold tracking-tight">
-              ◐ aeoscope
+              <span className="text-brand">◐</span> aeoscope
             </Link>
             <Nav />
           </div>
         </header>
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
-        <footer className="border-t border-neutral-200 dark:border-neutral-800">
-          <div className="mx-auto max-w-5xl px-4 py-4 text-xs text-neutral-400 dark:text-neutral-600">
+        <footer className="border-t border-line">
+          <div className="mx-auto max-w-5xl px-4 py-4 text-xs text-faint">
             aeoscope - self-hosted AI visibility tracking
           </div>
         </footer>

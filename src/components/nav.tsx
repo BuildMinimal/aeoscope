@@ -23,8 +23,8 @@ export function Nav() {
             href={l.href}
             className={`rounded-md px-3 py-1.5 text-sm ${
               active
-                ? "font-medium text-neutral-900 dark:text-white bg-neutral-200/70 dark:bg-neutral-800"
-                : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                ? "font-medium text-brand bg-brand-soft"
+                : "text-muted hover:text-foreground"
             }`}
           >
             {l.label}
