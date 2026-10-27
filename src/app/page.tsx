@@ -71,7 +71,7 @@ export default async function DashboardPage() {
             <Link className="underline" href="/runs">
               Trigger a run
             </Link>{" "}
-            — the mock engine works without any API keys.
+            - the mock engine works without any API keys.
           </p>
         </div>
       ) : (

@@ -81,7 +81,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
       {props.sets.length === 0 && (
         <div className={cardClass}>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            No prompt sets yet. Create your first one below — for example
+            No prompt sets yet. Create your first one below - for example
             &quot;category queries&quot; with prompts like &quot;best CRM for
             startups&quot; or &quot;top project management tools&quot;.
           </p>

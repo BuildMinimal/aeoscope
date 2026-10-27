@@ -41,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">{children}</main>
         <footer className="border-t border-neutral-200 dark:border-neutral-800">
           <div className="mx-auto max-w-5xl px-4 py-4 text-xs text-neutral-400 dark:text-neutral-600">
-            aeoscope — self-hosted AI visibility tracking
+            aeoscope - self-hosted AI visibility tracking
           </div>
         </footer>
       </body>

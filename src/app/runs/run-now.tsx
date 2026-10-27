@@ -17,7 +17,7 @@ export function RunNow(props: {
     return (
       <div className={cardClass}>
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          Create a prompt set first — runs are always for a whole set.
+          Create a prompt set first - runs are always for a whole set.
         </p>
       </div>
     );
@@ -70,7 +70,7 @@ export function RunNow(props: {
           </select>
         </div>
         <button className={buttonClass} onClick={run} disabled={running || !selected}>
-          {running ? "Running — this can take a minute…" : "Run now"}
+          {running ? "Running - this can take a minute…" : "Run now"}
         </button>
       </div>
       <p className="mt-2 text-xs text-neutral-400">

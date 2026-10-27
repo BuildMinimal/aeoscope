@@ -28,7 +28,7 @@ export default async function RunsPage() {
       {rows.length === 0 ? (
         <div className={cardClass}>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            No runs yet. Trigger one above — the mock engine works without any
+            No runs yet. Trigger one above - the mock engine works without any
             API keys.
           </p>
         </div>
