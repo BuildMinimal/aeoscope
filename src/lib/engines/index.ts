@@ -3,6 +3,7 @@ import { openai } from "./openai";
 import { perplexity } from "./perplexity";
 import { gemini } from "./gemini";
 import { anthropic } from "./anthropic";
+import { ollama } from "./ollama";
 import { mock } from "./mock";
 
 export const ENGINES: Record<EngineId, EngineAdapter> = {
@@ -10,6 +11,7 @@ export const ENGINES: Record<EngineId, EngineAdapter> = {
   perplexity,
   gemini,
   anthropic,
+  ollama,
   mock,
 };
 
