@@ -7,7 +7,7 @@ An *engine* is one AI provider aeoscope queries. Each run stores one answer per 
 | Mock | none | no | simulated | canned answer for trying aeoscope out |
 | OpenAI (ChatGPT) | `OPENAI_API_KEY` | no | from answer text | general assistant answers |
 | Perplexity | `PERPLEXITY_API_KEY` | yes | structured + from text | closest to AI search; recommended core signal |
-| Gemini | `GEMINI_API_KEY` | no | from answer text | |
+| Gemini | `GEMINI_API_KEY` | optional (`GEMINI_SEARCH=true`) | with grounding | Google Search grounding returns live sources as citations |
 | Anthropic (Claude) | `ANTHROPIC_API_KEY` | no | from answer text | |
 | Ollama | running Ollama, no key | no | from answer text | local, zero cost |
 | Custom | `CUSTOM_BASE_URL` | depends | from answer text | any OpenAI-compatible server (LM Studio, llama.cpp, vLLM, ...) |
