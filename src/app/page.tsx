@@ -3,20 +3,16 @@ import { getSettings } from "@/lib/runs";
 import { getDashboardStats } from "@/lib/stats";
 import { ENGINES } from "@/lib/engines";
 import { Sparkline } from "@/components/sparkline";
-import { badgeClass, buttonClass, buttonSecondaryClass, cardClass } from "@/components/ui";
+import { badgeClass, buttonClass, buttonSecondaryClass, cardClass, labelClass } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
 function StatCard(props: { label: string; value: string; sub?: string }) {
   return (
-    <div className={cardClass}>
-      <p className="text-xs font-medium uppercase tracking-wide text-muted">
-        {props.label}
-      </p>
-      <p className="mt-2 text-2xl font-semibold tracking-tight">{props.value}</p>
-      {props.sub && (
-        <p className="mt-1 text-xs text-faint">{props.sub}</p>
-      )}
+    <div className={`${cardClass} flex flex-col gap-1.5`}>
+      <p className={labelClass}>{props.label}</p>
+      <p className="text-2xl font-semibold tracking-tight">{props.value}</p>
+      {props.sub && <p className="text-xs text-faint">{props.sub}</p>}
     </div>
   );
 }
@@ -27,15 +23,15 @@ export default async function DashboardPage() {
 
   if (!s.brandName) {
     return (
-      <div className={cardClass}>
+      <div className={`${cardClass} flex flex-col gap-3`}>
         <h1 className="text-lg font-semibold tracking-tight">
           Welcome to aeoscope
         </h1>
-        <p className="mt-2 max-w-lg text-sm text-muted">
+        <p className="max-w-lg text-sm text-muted">
           Set up your brand, aliases, and competitors, then create a prompt set
           to start tracking whether AI engines mention and cite you.
         </p>
-        <div className="mt-4 flex gap-3">
+        <div className="flex gap-3">
           <Link href="/settings" className={buttonClass}>
             1. Configure your brand
           </Link>
@@ -50,7 +46,7 @@ export default async function DashboardPage() {
   const hasData = stats.overall.total > 0;
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-baseline gap-3">
         <h1 className="text-xl font-semibold tracking-tight">
           Visibility for {s.brandName}
@@ -87,15 +83,13 @@ export default async function DashboardPage() {
             />
           </div>
 
-          <div className={cardClass}>
-            <p className="text-xs font-medium uppercase tracking-wide text-muted">
-              Daily visibility, last 14 days
-            </p>
-            <div className="mt-3 text-brand">
+          <div className={`${cardClass} flex flex-col gap-2`}>
+            <p className={labelClass}>Daily visibility, last 14 days</p>
+            <div className="text-brand">
               <Sparkline days={stats.perDay} />
             </div>
             {stats.perDay.some((d) => d.total > 0) && (
-              <div className="mt-1 flex justify-between text-[10px] text-faint">
+              <div className="flex justify-between text-[10px] text-faint">
                 <span>{stats.perDay[0].date}</span>
                 <span>{stats.perDay[stats.perDay.length - 1].date}</span>
               </div>
@@ -103,9 +97,9 @@ export default async function DashboardPage() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <div className={cardClass}>
+            <div className={`${cardClass} flex flex-col gap-3`}>
               <h2 className="text-sm font-semibold">Per engine</h2>
-              <table className="mt-3 w-full text-sm">
+              <table className="w-full text-sm">
                 <tbody>
                   {stats.perEngine.map((e) => (
                     <tr
@@ -127,25 +121,25 @@ export default async function DashboardPage() {
               </table>
             </div>
 
-            <div className={cardClass}>
+            <div className={`${cardClass} flex flex-col gap-2`}>
               <h2 className="text-sm font-semibold">Share of voice</h2>
-              <p className="mt-1 text-xs text-faint">
+              <p className="text-xs text-faint">
                 How often each competitor appears in answers alongside you.
               </p>
               {stats.share.length === 0 ? (
-                <p className="mt-3 text-sm text-faint">
+                <p className="text-sm text-faint">
                   Add competitors in settings to compare.
                 </p>
               ) : (
-                <ul className="mt-4 space-y-3">
-                  <li>
+                <ul className="flex flex-col gap-3">
+                  <li className="flex flex-col gap-1">
                     <div className="flex justify-between text-sm">
                       <span className="font-medium">{s.brandName} (you)</span>
                       <span className="tabular-nums text-faint">
                         {stats.overall.mentioned}/{stats.overall.total}
                       </span>
                     </div>
-                    <div className="mt-1 h-2 rounded bg-black/5 dark:bg-white/10">
+                    <div className="h-2 rounded bg-black/5 dark:bg-white/10">
                       <div
                         className="h-2 rounded bg-btn"
                         style={{
@@ -160,14 +154,14 @@ export default async function DashboardPage() {
                         ? Math.round((c.mentioned / stats.overall.total) * 100)
                         : 0;
                     return (
-                      <li key={c.id}>
+                      <li key={c.id} className="flex flex-col gap-1">
                         <div className="flex justify-between text-sm">
                           <span>{c.name}</span>
                           <span className="tabular-nums text-faint">
                             {c.mentioned}/{stats.overall.total}
                           </span>
                         </div>
-                        <div className="mt-1 h-2 rounded bg-black/5 dark:bg-white/10">
+                        <div className="h-2 rounded bg-black/5 dark:bg-white/10">
                           <div
                             className="h-2 rounded bg-faint"
                             style={{ width: `${pct}%` }}
@@ -182,14 +176,14 @@ export default async function DashboardPage() {
           </div>
 
           {stats.recent.length > 0 && (
-            <div className={cardClass}>
+            <div className={`${cardClass} flex flex-col gap-3`}>
               <div className="flex items-center justify-between">
                 <h2 className="text-sm font-semibold">Latest answers</h2>
-                <Link className="text-xs underline text-faint" href="/runs">
+                <Link className="text-xs underline text-brand" href="/runs">
                   view all
                 </Link>
               </div>
-              <ul className="mt-3 divide-y divide-line">
+              <ul className="divide-y divide-line">
                 {stats.recent.map((r) => (
                   <li
                     key={r.id}

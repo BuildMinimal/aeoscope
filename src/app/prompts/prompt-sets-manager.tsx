@@ -8,6 +8,7 @@ import {
   buttonDangerClass,
   buttonSecondaryClass,
   cardClass,
+  fieldClass,
   inputClass,
   labelClass,
 } from "@/components/ui";
@@ -77,7 +78,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6">
       {props.sets.length === 0 && (
         <div className={cardClass}>
           <p className="text-sm text-muted">
@@ -90,17 +91,15 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
 
       {props.sets.map((s) =>
         editingId === s.id ? (
-          <SetEditor
-            key={s.id}
-            set={s}
-            onDone={() => setEditingId(null)}
-          />
+          <SetEditor key={s.id} set={s} onDone={() => setEditingId(null)} />
         ) : (
-          <div key={s.id} className={cardClass}>
-            <div className="flex flex-wrap items-center gap-3">
+          <div key={s.id} className={`${cardClass} flex flex-col gap-3`}>
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm font-medium">{s.name}</span>
               {s.schedule && (
-                <span className={`${badgeClass("gray")} font-mono`}>{s.schedule}</span>
+                <span className={`${badgeClass("gray")} font-mono`}>
+                  {s.schedule}
+                </span>
               )}
               {!s.enabled && <span className={badgeClass("amber")}>paused</span>}
               <span className="text-xs text-faint">
@@ -128,16 +127,11 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
               </span>
             </div>
             {s.description && (
-              <p className="mt-1.5 text-sm text-muted">
-                {s.description}
-              </p>
+              <p className="text-sm text-muted">{s.description}</p>
             )}
-            <ul className="mt-3 space-y-1.5">
+            <ul className="flex flex-col gap-1.5">
               {s.prompts.map((p) => (
-                <li
-                  key={p.id}
-                  className="text-sm text-foreground/80"
-                >
+                <li key={p.id} className="text-sm text-foreground/80">
                   <span className="mr-2 text-faint">›</span>
                   {p.text}
                 </li>
@@ -147,10 +141,11 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
         ),
       )}
 
-      <div className={cardClass}>
+      <div className={`${cardClass} flex flex-col gap-4`}>
         <h2 className="text-sm font-semibold">New prompt set</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          <div>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className={fieldClass}>
             <label className={labelClass}>Name</label>
             <input
               className={inputClass}
@@ -159,7 +154,7 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
               placeholder="Category queries"
             />
           </div>
-          <div className="sm:col-span-2">
+          <div className={`sm:col-span-2 ${fieldClass}`}>
             <label className={labelClass}>Description</label>
             <input
               className={inputClass}
@@ -169,16 +164,20 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
             />
           </div>
         </div>
-        <div className="mt-4">
+
+        <div className={fieldClass}>
           <label className={labelClass}>Prompts (one per line)</label>
           <textarea
             className={`${inputClass} min-h-28 font-mono`}
             value={promptsText}
             onChange={(e) => setPromptsText(e.target.value)}
-            placeholder={"best crm for startups\ntop project management tools for small teams"}
+            placeholder={
+              "best crm for startups\ntop project management tools for small teams"
+            }
           />
         </div>
-        <div className="mt-4">
+
+        <div className={fieldClass}>
           <label className={labelClass}>Schedule (optional cron)</label>
           <input
             className={`${inputClass} max-w-56 font-mono`}
@@ -186,19 +185,23 @@ export function PromptSetsManager(props: { sets: SetItem[] }) {
             onChange={(e) => setSchedule(e.target.value)}
             placeholder="0 9 * * *"
           />
-          <p className="mt-1 text-xs text-faint">
+          <p className="text-xs text-faint">
             Runs automatically at this time (UTC). Leave empty for manual runs
             only.
           </p>
         </div>
-        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
-        <button
-          className={`${buttonClass} mt-4`}
-          onClick={create}
-          disabled={creating || !name.trim() || !promptsText.trim()}
-        >
-          {creating ? "Creating…" : "Create prompt set"}
-        </button>
+
+        {error && <p className="text-sm text-red-600">{error}</p>}
+
+        <div className="flex">
+          <button
+            className={buttonClass}
+            onClick={create}
+            disabled={creating || !name.trim() || !promptsText.trim()}
+          >
+            {creating ? "Creating…" : "Create prompt set"}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -228,7 +231,7 @@ function SetEditor(props: { set: SetItem; onDone: () => void }) {
   }
 
   return (
-    <div className={cardClass}>
+    <div className={`${cardClass} flex flex-col gap-4`}>
       <div className="flex items-center gap-3">
         <h2 className="text-sm font-semibold">Edit: {set.name}</h2>
         <button
@@ -238,23 +241,36 @@ function SetEditor(props: { set: SetItem; onDone: () => void }) {
           Cancel
         </button>
       </div>
-      <div className="mt-4 space-y-3">
+
+      <div className={fieldClass}>
+        <label className={labelClass}>Name</label>
         <input
           className={inputClass}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+      </div>
+
+      <div className={fieldClass}>
+        <label className={labelClass}>Schedule (optional cron)</label>
         <input
           className={`${inputClass} max-w-56 font-mono`}
           value={schedule}
           onChange={(e) => setSchedule(e.target.value)}
-          placeholder="cron (optional)"
+          placeholder="0 9 * * *"
         />
+      </div>
+
+      <div className={fieldClass}>
+        <label className={labelClass}>Prompts (one per line)</label>
         <textarea
           className={`${inputClass} min-h-28 font-mono`}
           value={promptsText}
           onChange={(e) => setPromptsText(e.target.value)}
         />
+      </div>
+
+      <div className="flex">
         <button className={buttonClass} onClick={save} disabled={saving}>
           {saving ? "Saving…" : "Save changes"}
         </button>

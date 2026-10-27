@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { buttonClass, inputClass, labelClass, cardClass } from "@/components/ui";
+import { buttonClass, cardClass, fieldClass, inputClass, labelClass } from "@/components/ui";
 
 interface EngineInfo {
   id: string;
@@ -54,10 +54,11 @@ export function SettingsForm(props: {
   }
 
   return (
-    <div className={cardClass}>
+    <div className={`${cardClass} flex flex-col gap-4`}>
       <h2 className="text-sm font-semibold">Brand</h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className={fieldClass}>
           <label className={labelClass}>Brand name</label>
           <input
             className={inputClass}
@@ -66,7 +67,7 @@ export function SettingsForm(props: {
             placeholder="Acme Analytics"
           />
         </div>
-        <div>
+        <div className={fieldClass}>
           <label className={labelClass}>Aliases (comma separated)</label>
           <input
             className={inputClass}
@@ -75,8 +76,10 @@ export function SettingsForm(props: {
             placeholder="Acme, AcmeAnalytics"
           />
         </div>
-        <div>
-          <label className={labelClass}>Website domain (for citation tracking)</label>
+        <div className={fieldClass}>
+          <label className={labelClass}>
+            Website domain (for citation tracking)
+          </label>
           <input
             className={inputClass}
             value={domain}
@@ -86,43 +89,41 @@ export function SettingsForm(props: {
         </div>
       </div>
 
-      <h2 className="mt-6 text-sm font-semibold">Engines to query</h2>
-      <p className="mt-1 text-xs text-muted">
-        Keys come from your .env file (BYOK). The mock engine needs no key and
-        is useful for trying aeoscope out.
-      </p>
-      <div className="mt-3 grid gap-2 sm:grid-cols-2">
-        {props.engines.map((e) => (
-          <label
-            key={e.id}
-            className={`flex items-center gap-3 rounded-md border px-3 py-2.5 text-sm ${
-              enabled.includes(e.id)
-                ? "border-brand"
-                : "border-line"
-            } ${e.configured ? "cursor-pointer" : "opacity-50"}`}
-          >
-            <input
-              type="checkbox"
-              className="accent-btn"
-              checked={enabled.includes(e.id)}
-              disabled={!e.configured}
-              onChange={() => toggleEngine(e.id)}
-            />
-            <span className="flex-1">{e.label}</span>
-            {!e.configured && (
-              <span className="text-xs text-faint">set {e.apiKeyEnv}</span>
-            )}
-          </label>
-        ))}
+      <div className="flex flex-col gap-2">
+        <h2 className="text-sm font-semibold">Engines to query</h2>
+        <p className="text-xs text-faint">
+          Keys come from your .env file (BYOK). The mock engine needs no key
+          and is useful for trying aeoscope out.
+        </p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {props.engines.map((e) => (
+            <label
+              key={e.id}
+              className={`flex items-center gap-3 rounded-md border px-3 py-2.5 text-sm transition-colors ${
+                enabled.includes(e.id) ? "border-brand" : "border-line"
+              } ${e.configured ? "cursor-pointer" : "opacity-50"}`}
+            >
+              <input
+                type="checkbox"
+                className="accent-btn"
+                checked={enabled.includes(e.id)}
+                disabled={!e.configured}
+                onChange={() => toggleEngine(e.id)}
+              />
+              <span className="flex-1">{e.label}</span>
+              {!e.configured && (
+                <span className="text-xs text-faint">set {e.apiKeyEnv}</span>
+              )}
+            </label>
+          ))}
+        </div>
       </div>
 
-      <div className="mt-6 flex items-center gap-3">
+      <div className="flex items-center gap-3">
         <button className={buttonClass} onClick={save} disabled={saving}>
           {saving ? "Saving…" : "Save settings"}
         </button>
-        {saved && (
-          <span className="text-sm text-success">Saved</span>
-        )}
+        {saved && <span className="text-sm text-success">Saved</span>}
       </div>
     </div>
   );

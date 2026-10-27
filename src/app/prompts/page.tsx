@@ -11,10 +11,10 @@ export default async function PromptSetsPage() {
   const allPrompts = await db.select().from(prompts).orderBy(prompts.position);
 
   return (
-    <div className="space-y-8">
-      <div>
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-1">
         <h1 className="text-xl font-semibold tracking-tight">Prompt sets</h1>
-        <p className="mt-1 text-sm text-muted">
+        <p className="text-sm text-muted">
           The questions you want AI engines to answer, grouped so they run
           together. One prompt per line.
         </p>

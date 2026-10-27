@@ -12,9 +12,12 @@ export const buttonSecondaryClass =
   "inline-flex items-center justify-center gap-2 rounded-md border border-line bg-background px-3 py-2 text-sm text-foreground shadow-sm transition-colors hover:bg-brand-soft hover:text-brand disabled:cursor-not-allowed disabled:opacity-50";
 
 export const buttonDangerClass =
-  "inline-flex items-center justify-center rounded-md border border-red-500/30 px-2 py-1 text-xs text-red-600 transition-colors hover:bg-red-500/10 dark:text-red-400";
+  "inline-flex items-center justify-center rounded-md border border-red-500/30 bg-background px-3 py-2 text-sm text-red-600 shadow-sm transition-colors hover:bg-red-500/10 dark:text-red-400";
 
-export const labelClass = "block text-xs font-medium text-muted mb-1.5";
+export const labelClass = "block text-xs font-medium text-muted";
+
+/** Wrapper for a label + control pair: gap instead of label margins. */
+export const fieldClass = "flex flex-col gap-1.5";
 
 export function badgeClass(tone: "green" | "red" | "gray" | "amber") {
   switch (tone) {

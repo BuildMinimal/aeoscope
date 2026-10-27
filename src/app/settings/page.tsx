@@ -17,10 +17,10 @@ export default async function SettingsPage() {
     .orderBy(desc(competitorsTable.createdAt));
 
   return (
-    <div className="space-y-8">
-      <div>
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-1">
         <h1 className="text-xl font-semibold tracking-tight">Settings</h1>
-        <p className="mt-1 text-sm text-muted">
+        <p className="text-sm text-muted">
           Tell aeoscope who it is tracking. Brand name and aliases are matched
           case-insensitively in every AI response.
         </p>

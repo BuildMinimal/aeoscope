@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { buttonClass, cardClass } from "@/components/ui";
+import { buttonClass, cardClass, fieldClass, inputClass, labelClass } from "@/components/ui";
 
 export function RunNow(props: {
   sets: { id: string; name: string; enabled: boolean }[];
@@ -51,14 +51,12 @@ export function RunNow(props: {
   }
 
   return (
-    <div className={cardClass}>
+    <div className={`${cardClass} flex flex-col gap-2`}>
       <div className="flex flex-wrap items-end gap-3">
-        <div className="min-w-48">
-          <label className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-muted">
-            Prompt set
-          </label>
+        <div className={`min-w-48 ${fieldClass}`}>
+          <label className={labelClass}>Prompt set</label>
           <select
-            className="w-full rounded-md border border-line bg-transparent px-3 py-2 text-sm"
+            className={inputClass}
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
           >
@@ -73,13 +71,11 @@ export function RunNow(props: {
           {running ? "Running - this can take a minute…" : "Run now"}
         </button>
       </div>
-      <p className="mt-2 text-xs text-faint">
+      <p className="text-xs text-faint">
         Queries every enabled engine with every prompt in the set, sequentially.
       </p>
-      {result && (
-        <p className="mt-2 text-sm text-success">{result}</p>
-      )}
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {result && <p className="text-sm text-success">{result}</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import {
   buttonDangerClass,
   buttonSecondaryClass,
   cardClass,
+  fieldClass,
   inputClass,
   labelClass,
 } from "@/components/ui";
@@ -46,15 +47,17 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
   }
 
   return (
-    <div className={cardClass}>
-      <h2 className="text-sm font-semibold">Competitors</h2>
-      <p className="mt-1 text-xs text-muted">
-        Tracked to measure share of voice: how often they show up next to you
-        in AI answers.
-      </p>
+    <div className={`${cardClass} flex flex-col gap-4`}>
+      <div className="flex flex-col gap-1">
+        <h2 className="text-sm font-semibold">Competitors</h2>
+        <p className="text-xs text-faint">
+          Tracked to measure share of voice: how often they show up next to you
+          in AI answers.
+        </p>
+      </div>
 
       {props.competitors.length > 0 && (
-        <ul className="mt-4 divide-y divide-line">
+        <ul className="flex flex-col divide-y divide-line">
           {props.competitors.map((c) => (
             <li key={c.id} className="flex items-center gap-3 py-2.5 text-sm">
               <span className="font-medium">{c.name}</span>
@@ -76,8 +79,8 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
         </ul>
       )}
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-4">
-        <div className="sm:col-span-1">
+      <div className="grid gap-3 sm:grid-cols-4">
+        <div className={fieldClass}>
           <label className={labelClass}>Name</label>
           <input
             className={inputClass}
@@ -86,7 +89,7 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
             placeholder="Rival CRM"
           />
         </div>
-        <div className="sm:col-span-2">
+        <div className={`sm:col-span-2 ${fieldClass}`}>
           <label className={labelClass}>Aliases (comma separated)</label>
           <input
             className={inputClass}
@@ -95,7 +98,7 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
             placeholder="Rival, RivalCRM"
           />
         </div>
-        <div className="sm:col-span-1">
+        <div className={fieldClass}>
           <label className={labelClass}>Domain</label>
           <input
             className={inputClass}
@@ -105,13 +108,16 @@ export function CompetitorsManager(props: { competitors: CompetitorItem[] }) {
           />
         </div>
       </div>
-      <button
-        className={`mt-4 ${name.trim() && !adding ? buttonClass : buttonSecondaryClass}`}
-        onClick={add}
-        disabled={adding || !name.trim()}
-      >
-        {adding ? "Adding…" : "Add competitor"}
-      </button>
+
+      <div className="flex">
+        <button
+          className={name.trim() && !adding ? buttonClass : buttonSecondaryClass}
+          onClick={add}
+          disabled={adding || !name.trim()}
+        >
+          {adding ? "Adding…" : "Add competitor"}
+        </button>
+      </div>
     </div>
   );
 }

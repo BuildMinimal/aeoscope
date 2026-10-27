@@ -13,10 +13,10 @@ export default async function RunsPage() {
   const sets = await db.select().from(promptSets).orderBy(desc(promptSets.createdAt));
 
   return (
-    <div className="space-y-8">
-      <div>
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-1">
         <h1 className="text-xl font-semibold tracking-tight">Runs</h1>
-        <p className="mt-1 text-sm text-muted">
+        <p className="text-sm text-muted">
           Every stored AI answer, with what was detected in it.
         </p>
       </div>
@@ -33,10 +33,10 @@ export default async function RunsPage() {
           </p>
         </div>
       ) : (
-        <ul className="space-y-3">
+        <ul className="flex flex-col gap-3">
           {rows.map((r) => (
             <li key={r.id} className={cardClass}>
-              <details>
+              <details className="flex flex-col gap-3">
                 <summary className="flex cursor-pointer flex-wrap items-center gap-2.5 text-sm [&::-webkit-details-marker]:hidden">
                   <span
                     className={badgeClass(
@@ -62,22 +62,22 @@ export default async function RunsPage() {
                 </summary>
 
                 {r.status === "error" ? (
-                  <p className="mt-3 rounded-md bg-red-50 px-3 py-2 font-mono text-xs text-red-700 dark:bg-red-950 dark:text-red-300">
+                  <p className="rounded-md bg-red-500/10 px-3 py-2 font-mono text-xs text-red-600 dark:text-red-400">
                     {r.error}
                   </p>
                 ) : (
-                  <div className="mt-3 space-y-3">
+                  <div className="flex flex-col gap-3">
                     <pre className="max-h-64 overflow-auto whitespace-pre-wrap rounded-md bg-surface p-3 text-xs">
                       {r.responseText}
                     </pre>
                     {r.citations.length > 0 && (
-                      <div>
+                      <div className="flex flex-col gap-2">
                         <p className={badgeClass("gray")}>citations</p>
-                        <ul className="mt-2 space-y-1">
+                        <ul className="flex flex-col gap-1">
                           {r.citations.map((u) => (
                             <li key={u} className="truncate font-mono text-xs">
                               <a
-                                className="text-blue-600 hover:underline dark:text-blue-400"
+                                className="text-brand hover:underline"
                                 href={u}
                                 target="_blank"
                                 rel="noreferrer"
