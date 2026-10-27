@@ -32,7 +32,7 @@ Every engine has a sensible default model. Override per engine:
 | `OPENAI_MODEL` | `gpt-4o-mini` |
 | `PERPLEXITY_MODEL` | `sonar` |
 | `GEMINI_MODEL` | `gemini-3.8-flash` |
-| `GEMINI_SEARCH` | off — set `true` to ground Gemini in live Google Search (adds source citations, billed by Google beyond its free tier) |
+| `GEMINI_SEARCH` | off - set `true` to ground Gemini in live Google Search (adds source citations, billed by Google beyond its free tier) |
 | `ANTHROPIC_MODEL` | `claude-sonnet-4-5` |
 | `OLLAMA_MODEL` | `llama3.2` |
 | `CUSTOM_MODEL` | `local-model` |
