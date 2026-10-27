@@ -1,4 +1,5 @@
 import { EngineAdapter, EngineError, EngineResult } from "./types";
+import { dockerHostHint, fetchFromLocalServer } from "./local-server";
 
 interface ChatResponse {
   choices?: { message?: { content?: string } }[];
@@ -21,17 +22,20 @@ export const openaiCompatible: EngineAdapter = {
 
   async run(prompt, model): Promise<EngineResult> {
     const started = Date.now();
-    const base = (process.env.CUSTOM_BASE_URL ?? "").replace(/\/+$/, "");
+    const base = (process.env.CUSTOM_BASE_URL ?? "").trim().replace(/\/+$/, "");
     const usedModel = model ?? process.env.CUSTOM_MODEL ?? this.defaultModel;
 
     const headers: Record<string, string> = { "Content-Type": "application/json" };
-    if (process.env.CUSTOM_API_KEY) {
-      headers.Authorization = `Bearer ${process.env.CUSTOM_API_KEY}`;
+    const apiKey = process.env.CUSTOM_API_KEY?.trim();
+    if (apiKey) {
+      headers.Authorization = `Bearer ${apiKey}`;
     }
 
-    let res: Response;
-    try {
-      res = await fetch(`${base}/chat/completions`, {
+    const res = await fetchFromLocalServer(
+      "custom",
+      base,
+      "/chat/completions",
+      {
         method: "POST",
         headers,
         body: JSON.stringify({
@@ -40,14 +44,14 @@ export const openaiCompatible: EngineAdapter = {
         }),
         // local inference can be slow on modest hardware
         signal: AbortSignal.timeout(300_000),
-      });
-    } catch {
-      throw new EngineError(
-        "custom",
-        undefined,
-        `could not reach ${base}/chat/completions. Is the server running?`,
-      );
-    }
+      },
+      (b) =>
+        new EngineError(
+          "custom",
+          undefined,
+          `could not reach ${b}/chat/completions. Is the server running?${dockerHostHint(b)}`,
+        ),
+    );
 
     if (!res.ok) {
       const snippet = (await res.text()).slice(0, 300);

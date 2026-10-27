@@ -21,6 +21,12 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    # Lets the app reach servers running on the host machine (LM Studio,
+    # Ollama, ...) via host.docker.internal, including on Linux where the
+    # name is not built in. Localhost-bound servers additionally need their
+    # "serve on local network" option enabled on Linux.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       DATABASE_URL: postgresql://aeoscope:aeoscope@db:5432/aeoscope
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}

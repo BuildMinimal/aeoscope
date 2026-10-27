@@ -82,7 +82,9 @@ CUSTOM_BASE_URL=http://localhost:1234/v1
 CUSTOM_BASE_URL=http://localhost:11434/v1
 ```
 
-Set `CUSTOM_MODEL` if your server needs an explicit model name, then enable the **Custom** engine in Settings.
+> **Running aeoscope in Docker?** `localhost` inside the container is the container itself, not your machine. Point the base URL at the host instead: `http://host.docker.internal:1234/v1` (LM Studio) or `http://host.docker.internal:11434/v1` (Ollama). A `localhost` URL is retried via `host.docker.internal` automatically, so it still works — but setting it correctly skips the failed attempt. On Linux, also enable your server's "serve on local network" option, since Docker reaches the host over the network rather than loopback.
+
+Set `CUSTOM_MODEL` to the identifier of a model loaded in your server (visible in LM Studio's server tab, or `lms ls`), then enable the **Custom** engine in Settings.
 
 Keep in mind: hosted engines show what real users see in ChatGPT or Perplexity, while local models give you offline, zero-cost signals - they do not have web access.
 
