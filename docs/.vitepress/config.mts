@@ -5,8 +5,12 @@ export default defineConfig({
   description:
     "Self-hosted AI visibility tracking (GEO/AEO). Find out whether AI engines mention and cite your brand.",
   base: "/aeoscope/",
+  head: [
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/aeoscope/logo.svg" }],
+  ],
   themeConfig: {
-    siteTitle: "◐ aeoscope",
+    logo: "/logo.svg",
+    siteTitle: "aeoscope",
     nav: [
       { text: "Guide", link: "/getting-started" },
       { text: "Reference", link: "/reference/configuration" },

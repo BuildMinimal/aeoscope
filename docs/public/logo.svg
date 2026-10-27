@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    .ring { fill: none; stroke: #3451b2; stroke-width: 2.4; }
+    .half { fill: #3451b2; }
+    @media (prefers-color-scheme: dark) {
+      .ring { stroke: #a8b1ff; }
+      .half { fill: #a8b1ff; }
+    }
+  </style>
+  <circle class="ring" cx="12" cy="12" r="9.2"/>
+  <path class="half" d="M12 3.6 a8.4 8.4 0 0 0 0 16.8 Z"/>
+</svg>
