@@ -47,3 +47,8 @@ next-env.d.ts
 
 # but keep the example env file
 !.env.example
+
+# docs site build output and cache
+docs/node_modules/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
